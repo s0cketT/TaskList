@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TaskList</string>
+    <string name="title">Список заданий</string>
+    <string name="enter_password_placeholder">Введите пароль</string>
+    <string name="enter_button">Войти</string>
+    <string name="enter_login_placeholder">Введите логин</string>
 </resources>
