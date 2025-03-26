@@ -4,4 +4,9 @@
     <string name="enter_password_placeholder">Введите пароль</string>
     <string name="enter_button">Войти</string>
     <string name="enter_login_placeholder">Введите логин</string>
+    <string name="error_api">Нет данных</string>
+    <string name="error_no_internet">Нет интернета</string>
+    <string name="basic_text_field_hint">Введите текст для поиска</string>
+    <string name="post_result">Результат поста</string>
+    <string name="comment_is_not_find">Коментарий не найден</string>
 </resources>

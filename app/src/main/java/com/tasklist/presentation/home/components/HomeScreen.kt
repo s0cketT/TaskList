@@ -1,13 +1,15 @@
-package com.tasklist.presentation.Home.components
+package com.tasklist.presentation.home.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,8 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.tasklist.R
-import com.tasklist.presentation.Home.HomeViewModel
-import com.tasklist.presentation.Navigation.Screens
+import com.tasklist.presentation.home.HomeViewModel
 import com.tasklist.presentation.ui.theme.CustomOnBackground
 import com.tasklist.presentation.ui.theme.DarkBG
 import org.koin.androidx.compose.koinViewModel
@@ -32,8 +33,7 @@ fun HomeScreen(
 
     Column(
         modifier = Modifier.fillMaxSize()
-            .background(DarkBG)
-            .systemBarsPadding(),
+            .background(DarkBG),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -47,6 +47,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
             ) {
             items(tasks) { task ->
+                Log.d("fireivne", task)
                 TaskItem(task, navController)
             }
         }

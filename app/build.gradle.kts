@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    id("kotlin-parcelize")
 }
 
 android {
@@ -36,16 +38,25 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.andretietz.retrofit:cache-extension:1.0.0")
+
     //DI
     implementation("io.insert-koin:koin-android:3.5.3")
     implementation("io.insert-koin:koin-androidx-compose:3.5.3")
 
     //UI
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    implementation("com.google.code.gson:gson:2.8.7")
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.14")
 
     //Navigation
     implementation(libs.androidx.navigation.compose)
