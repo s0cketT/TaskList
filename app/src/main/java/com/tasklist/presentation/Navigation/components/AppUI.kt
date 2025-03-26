@@ -6,13 +6,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.tasklist.presentation.Home.components.HomeScreen
+import com.tasklist.GsonUtil.fromJson
+import com.tasklist.domain.model.PostsDomainModel
 import com.tasklist.presentation.Navigation.Screens
 import com.tasklist.presentation.Task_1.components.Task1Screen
+import com.tasklist.presentation.home.components.HomeScreen
+import com.tasklist.presentation.task_2.comments.components.CommentsScreen
+import com.tasklist.presentation.task_2.post_api.components.PostApiScreen
 
 @Composable
 fun AppUI() {
@@ -39,6 +42,18 @@ fun AppUI() {
 
         }
 
+        composable(Screens.Task2PostApi.route) {
+            PostApiScreen(navController)
+        }
+
+        composable(Screens.Task2Comments.route) {
+            val postJson = navController.previousBackStackEntry?.savedStateHandle?.get<String>("post")
+            val post = postJson?.fromJson<PostsDomainModel>()
+
+            post?.let { CommentsScreen(it) }
+        }
+
     }
 
 }
+
