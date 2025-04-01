@@ -18,6 +18,14 @@ class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Task1_Coroutines().main()
+        //Task2_Coroutines().main()
+        //Task3_Coroutines().main()
+        //Task4_Coroutines().main()
+
+        //Task_Flow().main()
+
         enableEdgeToEdge()
         setContent {
             TaskListTheme {
@@ -33,6 +41,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
 

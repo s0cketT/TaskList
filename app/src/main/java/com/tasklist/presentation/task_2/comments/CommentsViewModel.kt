@@ -20,6 +20,7 @@ class CommentsViewModel(
     private val _state = MutableStateFlow(CommentsState())
     val state = _state.asStateFlow()
 
+
     init {
         getComments(post.id)
     }
