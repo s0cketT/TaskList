@@ -16,6 +16,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,6 +32,9 @@ import com.tasklist.presentation.components.CustomLoader
 import com.tasklist.presentation.components.PostItem
 import com.tasklist.presentation.task_2.comments.CommentsState
 import com.tasklist.presentation.task_2.comments.CommentsViewModel
+import com.tasklist.presentation.task_2.post_api.PostApiViewModel
+import com.tasklist.presentation.task_2.post_api.model.PostIntent
+import com.tasklist.presentation.task_2.post_api.model.PostState
 import com.tasklist.presentation.ui.theme.CardBackgroundColor
 import com.tasklist.presentation.ui.theme.CardContentTextColor
 import com.tasklist.presentation.ui.theme.CardTextColor
@@ -44,14 +49,20 @@ fun CommentsScreen(
     val commentsViewModel: CommentsViewModel = koinViewModel(parameters = { parametersOf(post) })
     val state by commentsViewModel.state.collectAsStateWithLifecycle()
 
-    UI(post, state)
+    val postApiViewModel: PostApiViewModel = koinViewModel<PostApiViewModel>()
+    val postState by postApiViewModel.state.collectAsStateWithLifecycle()
+    val postIntent by remember { mutableStateOf(postApiViewModel::processIntent) }
+
+    UI(post, state, postState, postIntent)
 }
 
 @Composable
 @Preview
 private fun UI(
     post: PostsDomainModel = PostsDomainModel(userId = 1, id = 1, title = "", body = ""),
-    state: CommentsState = CommentsState()
+    state: CommentsState = CommentsState(),
+    postState: PostState = PostState(),
+    postIntent: (PostIntent) -> Unit = {}
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -70,7 +81,7 @@ private fun UI(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        PostItem(post)
+        PostItem(post, postIntent, postState.favorites)
 
         Spacer(modifier = Modifier.height(16.dp))
 

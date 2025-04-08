@@ -43,5 +43,7 @@ val CustomTextSelectionColors = TextSelectionColors(
     handleColor = TextSelectionHandle
 )
 
+// Переливающее сердечко
+val HeartGradientColors = listOf(Color.Red, Color(0xFF8000FF))
 
 
