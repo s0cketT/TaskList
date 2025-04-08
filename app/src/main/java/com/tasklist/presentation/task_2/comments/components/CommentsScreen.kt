@@ -16,6 +16,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import com.tasklist.R
 import com.tasklist.domain.model.PostsDomainModel
 import com.tasklist.presentation.components.CustomLoader
 import com.tasklist.presentation.components.PostItem
+import com.tasklist.presentation.task_2.comments.CommentsIntent
 import com.tasklist.presentation.task_2.comments.CommentsState
 import com.tasklist.presentation.task_2.comments.CommentsViewModel
 import com.tasklist.presentation.ui.theme.CardBackgroundColor
@@ -43,15 +46,16 @@ fun CommentsScreen(
 ) {
     val commentsViewModel: CommentsViewModel = koinViewModel(parameters = { parametersOf(post) })
     val state by commentsViewModel.state.collectAsStateWithLifecycle()
+    val intent by remember { mutableStateOf(commentsViewModel::processIntent) }
 
-    UI(post, state)
+    UI(state = state, onFavoriteClick = { intent(CommentsIntent.IsFavorites(post)) })
 }
 
 @Composable
 @Preview
 private fun UI(
-    post: PostsDomainModel = PostsDomainModel(userId = 1, id = 1, title = "", body = ""),
-    state: CommentsState = CommentsState()
+    state: CommentsState = CommentsState(currentPost = PostsDomainModel(0, 1, "", "", false)),
+    onFavoriteClick: () -> Unit = {}
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -70,7 +74,10 @@ private fun UI(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        PostItem(post)
+        PostItem(
+            post = state.currentPost,
+            onFavoriteClick = onFavoriteClick,
+            isFavorites = state.currentPost.isFavorite)
 
         Spacer(modifier = Modifier.height(16.dp))
 

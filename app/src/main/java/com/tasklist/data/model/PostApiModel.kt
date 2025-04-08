@@ -15,7 +15,8 @@ data class PostApiModel(
             userId = this.userId?.toInt()!!,
             id = this.id?.toInt()!!,
             title = this.title!!,
-            body = this.body!!
+            body = this.body!!,
+            isFavorite = false
         )
     }.getOrElse {
         Log.e("!!!", it.stackTraceToString())

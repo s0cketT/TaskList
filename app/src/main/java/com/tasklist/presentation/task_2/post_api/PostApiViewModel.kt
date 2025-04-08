@@ -1,10 +1,13 @@
 package com.tasklist.presentation.task_2.post_api
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasklist.domain.common.Resource
 import com.tasklist.domain.model.ExceptionDomainModel
 import com.tasklist.domain.model.PostsDomainModel
+import com.tasklist.domain.use_case.DeleteOrInsertFavoritesUseCase
+import com.tasklist.domain.use_case.GetAllFavoritesUseCase
 import com.tasklist.domain.use_case.GetPostsUseCase
 import com.tasklist.presentation.Navigation.SingleFlowEvent
 import com.tasklist.presentation.task_2.components.parseToString
@@ -16,7 +19,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class PostApiViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel() {
+class PostApiViewModel(
+    private val getPostsUseCase: GetPostsUseCase,
+    private val getAllFavoritesUseCase: GetAllFavoritesUseCase,
+    private val deleteOrInsertFavoritesUseCase: DeleteOrInsertFavoritesUseCase
+) : ViewModel() {
 
     private val _state = MutableStateFlow(PostState())
     val state = _state.asStateFlow()
@@ -26,13 +33,15 @@ class PostApiViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel
 
     init {
         getPosts()
+        getAllFavorites()
     }
 
     private fun getPosts() {
         viewModelScope.launch {
             _state.update { it.copy(isLoading = true) }
 
-            when (val result: Resource<List<PostsDomainModel>, ExceptionDomainModel> = getPostsUseCase()) {
+            when (val result: Resource<List<PostsDomainModel>, ExceptionDomainModel> =
+                getPostsUseCase()) {
                 is Resource.Success -> {
                     _state.update {
                         it.copy(
@@ -41,7 +50,9 @@ class PostApiViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel
                             error = null
                         )
                     }
+
                 }
+
                 is Resource.Error -> {
                     _state.update {
                         it.copy(isLoading = false, error = result.exception.parseToString())
@@ -60,10 +71,33 @@ class PostApiViewModel(private val getPostsUseCase: GetPostsUseCase) : ViewModel
                     )
                 }
             }
+
             is PostIntent.NavigateToCommentsScreen -> viewModelScope.launch {
                 _event.emit(Task2Event.NavigateToCommentsScreen(intent.post))
             }
+
+            is PostIntent.IsFavorites -> viewModelScope.launch {
+                deleteOrInsertFavoritesUseCase(intent.post)
+            }
         }
     }
+
+
+    private fun getAllFavorites() {
+        viewModelScope.launch {
+            getAllFavoritesUseCase().collect { favorites ->
+                _state.update { state ->
+                    val updatedPosts = state.originalPosts.map { post ->
+                        post.copy(isFavorite = favorites.any { it.id == post.id })
+                    }
+
+                    state.copy(
+                        originalPosts = updatedPosts
+                    )
+                }
+            }
+        }
+    }
+
 }
 

@@ -8,7 +8,7 @@ data class PostState(
     val error: Int? = null,
     val textField: String = ""
 ) {
-    val posts: List<PostsDomainModel> get() = filterPosts(originalPosts, textField)
+    val posts: List<PostsDomainModel> = filterPosts(originalPosts, textField).sortedByDescending { post -> post.isFavorite }
 
     companion object {
         fun filterPosts(originalPosts: List<PostsDomainModel>, query: String): List<PostsDomainModel> {

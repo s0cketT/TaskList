@@ -1,12 +1,17 @@
 package com.tasklist.presentation.task_2.post_api.components
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -16,12 +21,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -40,6 +51,7 @@ import com.tasklist.presentation.ui.theme.DarkError
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterIsInstance
 import org.koin.androidx.compose.koinViewModel
+import kotlin.math.roundToInt
 
 @Composable
 fun PostApiScreen(
@@ -57,8 +69,9 @@ fun PostApiScreen(
         }
     }
 
-    PostApiUI(state, intent)
+    PostApiUI(state = state, intent = intent)
 }
+
 
 
 @Composable
@@ -98,21 +111,58 @@ private fun PostApiUI(
                 }
 
                 state.posts.isNotEmpty() -> {
+
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         itemsIndexed(state.posts, key = { index, post -> post.id }) { index, post ->
+
+                            var xOffset by remember { mutableFloatStateOf(0f) }
+                            val context = LocalContext.current
+                            val screenWidthPx = context.resources.displayMetrics.widthPixels
+
+                            val currentPost by rememberUpdatedState(post)
+
+                            val animatedXOffset by animateFloatAsState(
+                                targetValue = xOffset,
+                                animationSpec = tween(durationMillis = 50, easing = LinearEasing),
+                                label = ""
+                            )
 
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(8.dp)
+                                    .offset { IntOffset(animatedXOffset.roundToInt(), 0) }
+                                    .pointerInput(Unit) {
+                                        detectHorizontalDragGestures(
+                                            onDragEnd = {
+                                                val maxSwipe = -(screenWidthPx * 0.3f)
+                                                if (xOffset <= maxSwipe) {
+                                                    intent(PostIntent.IsFavorites(currentPost))
+                                                }
+                                                xOffset = 0f
+                                            },
+                                            onHorizontalDrag = { _, dragAmount ->
+                                                xOffset = (xOffset + dragAmount)
+                                                    .coerceIn(-(screenWidthPx * 0.3f), 0f)
+                                            }
+                                        )
+
+                                    }
+                                    .animateItem()
                                     .clickable {
                                         intent(PostIntent.NavigateToCommentsScreen(post))
-                                               },
+                                    },
                                 elevation = CardDefaults.cardElevation(4.dp),
                                 colors = CardDefaults.cardColors(containerColor = CardBackgroundColor)
                             ) {
-                                PostItem(post)
+                                PostItem(
+                                    post = post,
+                                    onFavoriteClick = { intent(PostIntent.IsFavorites(post)) },
+                                    isFavorites = post.isFavorite
+                                )
                             }
+
+
                         }
                     }
                 }
