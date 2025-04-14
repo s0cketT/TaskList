@@ -1,13 +1,9 @@
 package com.tasklist.presentation.home.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -47,7 +43,6 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
             ) {
             items(tasks) { task ->
-                Log.d("fireivne", task)
                 TaskItem(task, navController)
             }
         }

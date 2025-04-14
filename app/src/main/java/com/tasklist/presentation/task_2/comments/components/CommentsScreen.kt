@@ -48,14 +48,14 @@ fun CommentsScreen(
     val state by commentsViewModel.state.collectAsStateWithLifecycle()
     val intent by remember { mutableStateOf(commentsViewModel::processIntent) }
 
-    UI(state = state, onFavoriteClick = { intent(CommentsIntent.IsFavorites(post)) })
+    UI(state = state, intent = intent)
 }
 
 @Composable
 @Preview
 private fun UI(
     state: CommentsState = CommentsState(currentPost = PostsDomainModel(0, 1, "", "", false)),
-    onFavoriteClick: () -> Unit = {}
+    intent: (CommentsIntent) -> Unit = {}
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -76,7 +76,7 @@ private fun UI(
 
         PostItem(
             post = state.currentPost,
-            onFavoriteClick = onFavoriteClick,
+            onFavoriteClick = { intent((CommentsIntent.IsFavorites(state.currentPost))) },
             isFavorites = state.currentPost.isFavorite)
 
         Spacer(modifier = Modifier.height(16.dp))
