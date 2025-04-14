@@ -9,14 +9,14 @@ import com.tasklist.domain.model.AutoMigrationDomainModel
 data class AutoMigrationDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val B: String = "",
+    val W: String = "",
     val C: String = "",
     @ColumnInfo(defaultValue = "2")
     val D: String = ""
 ) {
     fun toDomainModel(): AutoMigrationDomainModel = AutoMigrationDomainModel(
         id = this.id,
-        B = this.B,
+        W = this.W,
         C = this.C,
         D = this.D,
     )
@@ -25,7 +25,7 @@ data class AutoMigrationDbModel(
         fun fromDomainModel(domainModel: AutoMigrationDomainModel): AutoMigrationDbModel {
             return AutoMigrationDbModel(
                 id = domainModel.id,
-                B = domainModel.B,
+                W = domainModel.W,
                 C = domainModel.C,
                 D = domainModel.D,
             )

@@ -72,7 +72,7 @@ private fun UI(
                         horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = item.B, color = CardContentTextColor)
+                        Text(text = item.W, color = CardContentTextColor)
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = item.C, color = CardContentTextColor)
                         Text(text = item.D, color = CardContentTextColor)
@@ -92,7 +92,7 @@ private fun UI(
             Button(onClick = {
                 val randomModel = AutoMigrationDomainModel(
                     id = 0,
-                    B = "B: " + (1..100).random().toString(),
+                    W = "W: " + (1..100).random().toString(),
                     C = "C: " + listOf("Alpha", "Beta", "Gamma", "Delta").random(),
                     D = "D: " + listOf("Loading", "Success", "Error").random()
                 )
