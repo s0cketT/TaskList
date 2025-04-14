@@ -9,7 +9,6 @@ import com.tasklist.domain.model.AutoMigrationDomainModel
 data class AutoMigrationDbModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val A: String = "",
     val B: String = "",
     val C: String = "",
     @ColumnInfo(defaultValue = "2")
@@ -17,7 +16,6 @@ data class AutoMigrationDbModel(
 ) {
     fun toDomainModel(): AutoMigrationDomainModel = AutoMigrationDomainModel(
         id = this.id,
-        A = this.A,
         B = this.B,
         C = this.C,
         D = this.D,
@@ -27,7 +25,6 @@ data class AutoMigrationDbModel(
         fun fromDomainModel(domainModel: AutoMigrationDomainModel): AutoMigrationDbModel {
             return AutoMigrationDbModel(
                 id = domainModel.id,
-                A = domainModel.A,
                 B = domainModel.B,
                 C = domainModel.C,
                 D = domainModel.D,

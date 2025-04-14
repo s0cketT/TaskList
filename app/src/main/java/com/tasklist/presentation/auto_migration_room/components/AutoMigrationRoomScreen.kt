@@ -31,9 +31,7 @@ import com.tasklist.presentation.auto_migration_room.AutoMigrationState
 import com.tasklist.presentation.auto_migration_room.AutoMigrationViewModel
 import com.tasklist.presentation.ui.theme.CardBackgroundColor
 import com.tasklist.presentation.ui.theme.CardContentTextColor
-import com.tasklist.presentation.ui.theme.CardTextColor
 import org.koin.androidx.compose.koinViewModel
-import java.util.UUID
 
 @Composable
 fun AutoMigrationRoomScreen() {
@@ -73,7 +71,6 @@ private fun UI(
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                        Text(text = item.A, color = CardTextColor)
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = item.B, color = CardContentTextColor)
                         Spacer(modifier = Modifier.height(8.dp))
@@ -95,7 +92,6 @@ private fun UI(
             Button(onClick = {
                 val randomModel = AutoMigrationDomainModel(
                     id = 0,
-                    A = "A: " + UUID.randomUUID().toString().take(5),
                     B = "B: " + (1..100).random().toString(),
                     C = "C: " + listOf("Alpha", "Beta", "Gamma", "Delta").random(),
                     D = "D: " + listOf("Loading", "Success", "Error").random()
