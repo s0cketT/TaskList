@@ -78,6 +78,7 @@ private fun UI(
                         Text(text = item.B, color = CardContentTextColor)
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(text = item.C, color = CardContentTextColor)
+                        Text(text = item.D, color = CardContentTextColor)
 
                         Button(onClick = {
                             intent(AutoMigrationIntent.DeleteItem(item)) }) {
@@ -96,7 +97,8 @@ private fun UI(
                     id = 0,
                     A = "A: " + UUID.randomUUID().toString().take(5),
                     B = "B: " + (1..100).random().toString(),
-                    C = "C: " + listOf("Alpha", "Beta", "Gamma", "Delta").random()
+                    C = "C: " + listOf("Alpha", "Beta", "Gamma", "Delta").random(),
+                    D = "D: " + listOf("Loading", "Success", "Error").random()
                 )
 
                 intent(AutoMigrationIntent.InsertItem(randomModel)) }) {

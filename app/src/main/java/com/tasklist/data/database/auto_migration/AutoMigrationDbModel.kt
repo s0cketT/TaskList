@@ -1,5 +1,6 @@
 package com.tasklist.data.database.favorites
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tasklist.domain.model.AutoMigrationDomainModel
@@ -10,13 +11,16 @@ data class AutoMigrationDbModel(
     val id: Int = 0,
     val A: String = "",
     val B: String = "",
-    val C: String = ""
+    val C: String = "",
+    @ColumnInfo(defaultValue = "2")
+    val D: String = ""
 ) {
     fun toDomainModel(): AutoMigrationDomainModel = AutoMigrationDomainModel(
         id = this.id,
         A = this.A,
         B = this.B,
         C = this.C,
+        D = this.D,
     )
 
     companion object {
@@ -25,7 +29,8 @@ data class AutoMigrationDbModel(
                 id = domainModel.id,
                 A = domainModel.A,
                 B = domainModel.B,
-                C = domainModel.C
+                C = domainModel.C,
+                D = domainModel.D,
             )
         }
 
