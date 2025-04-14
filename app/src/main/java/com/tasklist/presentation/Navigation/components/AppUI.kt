@@ -13,7 +13,6 @@ import com.tasklist.GsonUtil.fromJson
 import com.tasklist.domain.model.PostsDomainModel
 import com.tasklist.presentation.Navigation.Screens
 import com.tasklist.presentation.Task_1.components.Task1Screen
-import com.tasklist.presentation.auto_migration_room.components.AutoMigrationRoomScreen
 import com.tasklist.presentation.home.components.HomeScreen
 import com.tasklist.presentation.task_2.comments.components.CommentsScreen
 import com.tasklist.presentation.task_2.post_api.components.PostApiScreen
@@ -54,9 +53,7 @@ fun AppUI() {
             post?.let { CommentsScreen(it) }
         }
 
-        composable(Screens.TaskАutoMigrationRoom.route) {
-            AutoMigrationRoomScreen()
-        }
+
     }
 
 }

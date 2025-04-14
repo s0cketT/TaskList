@@ -9,6 +9,5 @@ sealed class Screens(val route: String) {
     object Task2PostApi : Screens("Task2-PostApi")
     object Task2Comments : Screens("Task2-Comments")
 
-    object TaskАutoMigrationRoom : Screens("TaskAutoMigrationRoom")
 
 }
