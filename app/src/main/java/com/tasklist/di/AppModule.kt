@@ -21,6 +21,7 @@ import com.tasklist.presentation.Task_1.Task1ViewModel
 import com.tasklist.presentation.home.HomeViewModel
 import com.tasklist.presentation.task_2.comments.CommentsViewModel
 import com.tasklist.presentation.task_2.post_api.PostApiViewModel
+import com.tasklist.presentation.task_pages.TaskPagesViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -61,4 +62,5 @@ val appModule = module {
         deleteOrInsertFavoritesUseCase = get<DeleteOrInsertFavoritesUseCase>()
         ) }
 
+    viewModel<TaskPagesViewModel> { TaskPagesViewModel() }
 }
