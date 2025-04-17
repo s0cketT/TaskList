@@ -16,6 +16,7 @@ import com.tasklist.presentation.Task_1.components.Task1Screen
 import com.tasklist.presentation.home.components.HomeScreen
 import com.tasklist.presentation.task_2.comments.components.CommentsScreen
 import com.tasklist.presentation.task_2.post_api.components.PostApiScreen
+import com.tasklist.presentation.task_pages.components.TaskPages
 
 @Composable
 fun AppUI() {
@@ -53,7 +54,9 @@ fun AppUI() {
             post?.let { CommentsScreen(it) }
         }
 
-
+        composable(Screens.TaskPages.route) {
+            TaskPages()
+        }
     }
 
 }
