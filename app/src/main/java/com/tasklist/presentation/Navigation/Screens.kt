@@ -11,4 +11,8 @@ sealed class Screens(val route: String) {
 
     object TaskPages : Screens("Task-Pages")
 
+    object TwoRectangles : Screens("Two-Rectangles")
+
+    object FlowRowAnimateVisibility : Screens("FlowRow-AnimateVisibility")
+
 }

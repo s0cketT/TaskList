@@ -28,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun TaskPages() {
+fun TaskPagesScreen() {
 
     val taskPagesViewModel = koinViewModel<TaskPagesViewModel>()
     val state by taskPagesViewModel.state.collectAsStateWithLifecycle()

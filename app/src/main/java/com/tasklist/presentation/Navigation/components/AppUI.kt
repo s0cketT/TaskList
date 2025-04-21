@@ -16,7 +16,9 @@ import com.tasklist.presentation.Task_1.components.Task1Screen
 import com.tasklist.presentation.home.components.HomeScreen
 import com.tasklist.presentation.task_2.comments.components.CommentsScreen
 import com.tasklist.presentation.task_2.post_api.components.PostApiScreen
-import com.tasklist.presentation.task_pages.components.TaskPages
+import com.tasklist.presentation.task_custom_view.components.FlowRowAnimateVisibilityScreen
+import com.tasklist.presentation.task_custom_view.components.TwoRectanglesScreen
+import com.tasklist.presentation.task_pages.components.TaskPagesScreen
 
 @Composable
 fun AppUI() {
@@ -55,7 +57,15 @@ fun AppUI() {
         }
 
         composable(Screens.TaskPages.route) {
-            TaskPages()
+            TaskPagesScreen()
+        }
+
+        composable(Screens.TwoRectangles.route) {
+            TwoRectanglesScreen()
+        }
+
+        composable(Screens.FlowRowAnimateVisibility.route) {
+            FlowRowAnimateVisibilityScreen()
         }
     }
 
