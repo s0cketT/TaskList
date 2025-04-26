@@ -39,13 +39,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.tasklist.presentation.ui.theme.CardBackgroundColor
 import com.tasklist.presentation.ui.theme.DarkPrimary
 import com.tasklist.presentation.ui.theme.DarkText
 import com.tasklist.presentation.ui.theme.TextSelectionBackground
 import com.tasklist.presentation.ui.theme.TextSelectionHandle
 
-
+@RootNavGraph
+@Destination
 @Composable
 fun FlowRowAnimateVisibilityScreen() {
     FlowRowExample()

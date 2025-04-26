@@ -19,6 +19,7 @@ import com.tasklist.domain.use_case.GetCommentsUseCase
 import com.tasklist.domain.use_case.GetPostsUseCase
 import com.tasklist.domain.use_case.ValidateUserUseCase
 import com.tasklist.presentation.Task_1.Task1ViewModel
+import com.tasklist.presentation.compose_distination.SharedViewModel
 import com.tasklist.presentation.home.HomeViewModel
 import com.tasklist.presentation.task_2.comments.CommentsViewModel
 import com.tasklist.presentation.task_2.post_api.PostApiViewModel
@@ -65,4 +66,6 @@ val appModule = module {
 
 
     viewModel<TaskPagesViewModel> { TaskPagesViewModel() }
+
+    viewModel<SharedViewModel> { SharedViewModel() }
 }

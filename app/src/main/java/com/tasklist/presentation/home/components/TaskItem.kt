@@ -12,22 +12,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import com.tasklist.presentation.destinations.Task1ScreenDestination
+import com.tasklist.presentation.home.HomeIntent
+import com.tasklist.presentation.home.TaskScreen
 
 @Composable
-fun TaskItem(task: String, navController: NavController) {
+fun TaskItem(
+    taskScreen: TaskScreen,
+    intent: (HomeIntent) -> Unit = {}
+) {
 
     Row(modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
         ) {
-        Button(onClick = { navController.navigate(task) },
+        Task1ScreenDestination
+        Button(onClick = {
+            intent(HomeIntent.Navigate(taskScreen))
+        },
             modifier = Modifier
                 .fillMaxWidth(0.7f)
                 .fillMaxHeight(0.18f),
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
-            Text(text = task,
+            Text(text = taskScreen.displayName,
                 fontSize = 18.sp,
                 color = MaterialTheme.colorScheme.onPrimary
                 )

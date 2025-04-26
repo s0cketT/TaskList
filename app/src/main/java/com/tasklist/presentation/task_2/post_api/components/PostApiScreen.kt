@@ -35,7 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.tasklist.R
 import com.tasklist.presentation.Navigation.components.navigateToComments
 import com.tasklist.presentation.components.CustomLoader
@@ -53,9 +55,11 @@ import kotlinx.coroutines.flow.filterIsInstance
 import org.koin.androidx.compose.koinViewModel
 import kotlin.math.roundToInt
 
+@RootNavGraph
+@Destination
 @Composable
 fun PostApiScreen(
-    navController: NavController
+    navigator: DestinationsNavigator,
 ) {
 
     val postApiViewModel = koinViewModel<PostApiViewModel>()
@@ -65,10 +69,9 @@ fun PostApiScreen(
 
     LaunchedEffect(Unit) {
         event.filterIsInstance<Task2Event.NavigateToCommentsScreen>().collect { event ->
-            navController.navigateToComments(event.post)
+            navigator.navigateToComments(event.post)
         }
     }
-
     PostApiUI(state = state, intent = intent)
 }
 

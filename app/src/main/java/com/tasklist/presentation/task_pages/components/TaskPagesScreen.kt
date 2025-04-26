@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.tasklist.presentation.components.CustomLoader
 import com.tasklist.presentation.task_pages.TaskPagesIntent
 import com.tasklist.presentation.task_pages.TaskPagesState
@@ -26,7 +28,8 @@ import com.tasklist.presentation.task_pages.TaskPagesViewModel
 import com.tasklist.presentation.ui.theme.CardBackgroundColor
 import org.koin.androidx.compose.koinViewModel
 
-
+@RootNavGraph
+@Destination
 @Composable
 fun TaskPagesScreen() {
 

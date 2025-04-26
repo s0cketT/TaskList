@@ -9,4 +9,9 @@
     <string name="basic_text_field_hint">Введите текст для поиска</string>
     <string name="post_result">Результат поста</string>
     <string name="comment_is_not_find">Коментарий не найден</string>
+
+    <string name="go_to_b_screen">Переход на экран B</string>
+    <string name="go_to_c_screen">Переход на экран C</string>
+    <string name="return_to_c_screen">Вернуться на экран B</string>
+    <string name="close_nested_graph">Закрыть вложенный граф</string>
 </resources>

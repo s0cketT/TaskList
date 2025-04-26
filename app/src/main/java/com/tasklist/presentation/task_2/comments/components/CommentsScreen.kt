@@ -26,6 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.tasklist.GsonUtil.fromJson
 import com.tasklist.R
 import com.tasklist.domain.model.PostsDomainModel
 import com.tasklist.presentation.components.CustomLoader
@@ -40,10 +43,14 @@ import com.tasklist.presentation.ui.theme.DarkBG
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
+@RootNavGraph
+@Destination
 @Composable
 fun CommentsScreen(
-    post: PostsDomainModel
+    postJson: String
 ) {
+    val post = postJson.fromJson<PostsDomainModel>()
+
     val commentsViewModel: CommentsViewModel = koinViewModel(parameters = { parametersOf(post) })
     val state by commentsViewModel.state.collectAsStateWithLifecycle()
     val intent by remember { mutableStateOf(commentsViewModel::processIntent) }

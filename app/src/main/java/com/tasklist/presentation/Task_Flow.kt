@@ -211,13 +211,18 @@ class Task_Flow {
             .collect{  Log.e("!!!", "$it") }
         */
         /*
-        flowOf("A", "B", "C")
-            .onEach  { Log.e("!!!", "onEach: ${Thread.currentThread().name} - $it") }
-            .buffer()
-            .collect { Log.e("!!!", "collect: ${Thread.currentThread().name} - $it")
+        flow {
+            for (i in 1..3) {
+                emit(i)
+                delay(5000) // Источник эмитирует каждые 100 мс
+            }
+        }.buffer()
+            .collect {
+                Log.e("!!!", "Collected: $it")
+                delay(5000) // Обработка занимает 300 мс
             }
         */
-        /*
+
 
         //FlowCombineZip
 
@@ -234,15 +239,16 @@ class Task_Flow {
         val value = flowOf(1, 2, 3).first()
         val emptyFlow = emptyFlow<Int>()
         */
-        //Scan
-        /*
-        val flowScan = flowOf(1, 2, 3, 4)
-            .scan(0) { acc, value -> acc + value }
-            .collect { Log.e("!!!", "$it") }
-           */
 
+        //Scan
+        /*val flowScan = flowOf(1, 2, 3, 4)
+            .scan(0) { acc, value -> acc + value }
+            .collect { Log.e("!!!", "$it") }*/
+
+
+        /*
         val flow = flowOf(1, 2, 3)
-        val result = flow.flatMapConcat { value ->
+        val result = flow.flatMapLatest { value ->
             flow {
                 emit("$value-A")
                 delay(500)
@@ -250,7 +256,7 @@ class Task_Flow {
             }
         }
         result.collect { Log.e("!!!", "$it") }
-
+        */
 
         /*
         Log.e("!!!", "Программа запущена")
@@ -261,7 +267,7 @@ class Task_Flow {
         else {}
         Log.e("!!!", "Программа завершена")
         */
-         */
+
     }
 }
 

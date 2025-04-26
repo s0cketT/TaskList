@@ -5,7 +5,9 @@ plugins {
 
     id("kotlin-kapt")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "2.0.0-1.0.24"
 }
+
 
 android {
     namespace = "com.tasklist"
@@ -41,6 +43,8 @@ android {
         compose = true
         buildConfig = true
     }
+
+
 }
 
 kapt {
@@ -50,6 +54,11 @@ kapt {
 }
 
 dependencies {
+    //Compose Destination
+    val destination_version = "1.10.2"
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$destination_version")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$destination_version")
+
     //room
     val room_version = "2.6.1"
     implementation("androidx.room:room-ktx:$room_version")

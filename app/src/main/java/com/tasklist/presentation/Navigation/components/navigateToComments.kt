@@ -1,11 +1,11 @@
 package com.tasklist.presentation.Navigation.components
 
-import androidx.navigation.NavController
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.tasklist.GsonUtil.toJson
 import com.tasklist.domain.model.PostsDomainModel
-import com.tasklist.presentation.Navigation.Screens
+import com.tasklist.presentation.destinations.CommentsScreenDestination
 
-fun NavController.navigateToComments(post: PostsDomainModel) {
-    this.currentBackStackEntry?.savedStateHandle?.set("post", post.toJson())
-    this.navigate(Screens.Task2Comments.route)
+fun DestinationsNavigator.navigateToComments(post: PostsDomainModel) {
+    val postJson = post.toJson()
+    this.navigate(CommentsScreenDestination(postJson = postJson))
 }

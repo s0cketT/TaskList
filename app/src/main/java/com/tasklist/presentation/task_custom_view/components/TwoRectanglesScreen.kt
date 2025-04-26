@@ -27,9 +27,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootNavGraph
 import kotlin.math.roundToInt
 
-
+@RootNavGraph
+@Destination
 @Composable
 fun TwoRectanglesScreen() {
     Test()
@@ -68,7 +71,6 @@ fun Test() {
         ) {
             Box(
                 modifier = Modifier
-                    .background(Color.Green)
                     .onGloballyPositioned {
                         baseBoxPosition = it.positionInRoot().toIntOffset()
                         baseBoxSize = it.size
