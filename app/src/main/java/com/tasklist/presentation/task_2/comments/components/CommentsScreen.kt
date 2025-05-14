@@ -99,7 +99,7 @@ private fun UI(
 
             state.comments.isNotEmpty() -> {
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    itemsIndexed(state.comments, key = { index, comment -> comment.id }) { index, comment ->
+                    itemsIndexed(state.comments, key = { _, comment -> comment.id }) { _, comment ->
 
                         Card(
                             modifier = Modifier

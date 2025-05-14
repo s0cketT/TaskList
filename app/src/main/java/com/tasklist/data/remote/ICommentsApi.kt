@@ -1,9 +1,7 @@
 package com.tasklist.data.remote
 
-import android.app.Application
 import com.andretietz.retrofit.ResponseCache
 import com.tasklist.data.model.CommentsApiModel
-import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit

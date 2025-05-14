@@ -116,7 +116,7 @@ private fun PostApiUI(
                 state.posts.isNotEmpty() -> {
 
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
-                        itemsIndexed(state.posts, key = { index, post -> post.id }) { index, post ->
+                        itemsIndexed(state.posts, key = { _, post -> post.id }) { _, post ->
 
                             var xOffset by remember { mutableFloatStateOf(0f) }
                             val context = LocalContext.current

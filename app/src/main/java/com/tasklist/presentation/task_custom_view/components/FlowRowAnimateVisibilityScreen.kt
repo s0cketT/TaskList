@@ -162,12 +162,12 @@ fun FlowRowExample() {
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
                         .padding(8.dp)
-                        .animateItemPlacement(
-                            animationSpec = tween(
-                                durationMillis = 3000,
-                                easing = FastOutSlowInEasing
-                            )
-                        ),
+                        .animateItem(
+                        fadeInSpec = null, fadeOutSpec = null, placementSpec = tween(
+                            durationMillis = 3000,
+                            easing = FastOutSlowInEasing
+                        )
+                    ),
                     elevation = CardDefaults.cardElevation(4.dp),
                     colors = CardDefaults.cardColors(containerColor = CardBackgroundColor)
                 ) {

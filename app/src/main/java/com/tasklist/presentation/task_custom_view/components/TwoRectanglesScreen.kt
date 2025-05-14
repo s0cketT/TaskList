@@ -80,7 +80,7 @@ fun Test() {
                     modifier = Modifier
                         .offset { boxOffSet }
                         .pointerInput(Unit) {
-                            detectDragGestures { change, dragAmount ->
+                            detectDragGestures { _, dragAmount ->
                                 val newOffset = boxOffSet + dragAmount.toIntOffset()
                                 val newBoxPosition = baseBoxPosition + newOffset
 

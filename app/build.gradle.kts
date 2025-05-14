@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -23,14 +26,56 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs{
+        getByName("debug"){
+            val keystorePropertiesFile = rootProject.file("app/myKeyStore.properties")
+            val keystoreProperties = Properties()
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            keyAlias = keystoreProperties["keyAlias"].toString()
+            keyPassword = keystoreProperties["keyPassword"].toString()
+            storeFile = file(keystoreProperties["storeFile"].toString())
+            storePassword = keystoreProperties["storePassword"].toString()
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
+            resValue("string", "test_string", "Release")
+            buildConfigField("String", "test_string", "\"Release\"")
+            buildConfigField("Boolean", "test_boolean", "true")
+            buildConfigField("int", "test_int", "10")
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
+        create("localTest") {
+            initWith(getByName("release"))
+            isMinifyEnabled = false
+            isShrinkResources = false
+            resValue("string", "test_string", "localTest")
+            buildConfigField("String", "test_string", "\"localTest\"")
+            buildConfigField("Boolean", "test_boolean", "true")
+            buildConfigField("int", "test_int", "20")
+        }
+
+        debug {
+            initWith(getByName("release"))
+            isDebuggable = true
+            isMinifyEnabled = false
+            isShrinkResources = false
+
+            resValue("string", "test_string", "debug")
+            buildConfigField("String", "test_string", "\"debug\"")
+            buildConfigField("Boolean", "test_boolean", "false")
+            buildConfigField("int", "test_int", "0")
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -42,6 +87,15 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+    flavorDimensions += listOf("AppFlavors")
+    productFlavors {
+        create("flavOne") {
+            dimension = "AppFlavors"
+        }
+        create("flavTwo") {
+            dimension = "AppFlavors"
+        }
     }
 
 
@@ -68,13 +122,15 @@ dependencies {
 
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    val retrofit_version = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
     implementation("com.andretietz.retrofit:cache-extension:1.0.0")
 
     //DI
-    implementation("io.insert-koin:koin-android:3.5.3")
-    implementation("io.insert-koin:koin-androidx-compose:3.5.3")
+    val koin_version = "3.5.3"
+    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_version")
 
     //UI
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
