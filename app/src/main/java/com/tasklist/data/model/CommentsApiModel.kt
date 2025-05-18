@@ -1,7 +1,7 @@
 package com.tasklist.data.model
 
-import android.util.Log
 import com.tasklist.domain.model.CommentsDomainModel
+import com.tasklist.log
 
 
 data class CommentsApiModel(
@@ -31,7 +31,7 @@ data class CommentsApiModel(
             val invalidCount = this.size - mapResult.size
 
             if (invalidCount != 0) {
-                Log.e("!!!", "Количество битых данных $invalidCount")
+                log("Количество битых данных $invalidCount")
             }
 
             return mapResult

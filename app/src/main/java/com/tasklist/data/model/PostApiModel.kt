@@ -1,7 +1,7 @@
 package com.tasklist.data.model
 
-import android.util.Log
 import com.tasklist.domain.model.PostsDomainModel
+import com.tasklist.log
 
 
 data class PostApiModel(
@@ -19,7 +19,7 @@ data class PostApiModel(
             isFavorite = false
         )
     }.getOrElse {
-        Log.e("!!!", it.stackTraceToString())
+        log(it.stackTraceToString())
         null
     }
 
@@ -29,7 +29,7 @@ data class PostApiModel(
             val invalidCount = this.size - mapResult.size
 
             if (invalidCount != 0) {
-                Log.e("!!!", "Количество битых данных $invalidCount")
+                log("Количество битых данных $invalidCount")
             }
 
             return mapResult

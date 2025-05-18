@@ -131,6 +131,7 @@ dependencies {
     val koin_version = "3.5.3"
     implementation("io.insert-koin:koin-android:$koin_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_version")
+    testImplementation("io.insert-koin:koin-test:$koin_version")
 
     //UI
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
@@ -150,6 +151,10 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.firebase.crashlytics.buildtools)
     testImplementation(libs.junit)
+    //Mokito
+    testImplementation("org.mockito:mockito-core:5.8.0")
+    //Coroutine Test
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
